@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color backgroundColor = Color(0xFFE3EEF8);
+const Color backgroundColor = Color(0xFFFFFFFF);
 const Color titleColor = Color(0xFF353535);
 const Color textColor = Color(0xFF353535);
 const Color mutedIconColor = Color(0xFFA1A1A1);
@@ -11,8 +11,8 @@ const Color cardBorderColor = Color(0xFFD8D8D8);
 const Color cardFocusBorderColor = Color.fromARGB(255, 203, 203, 203);
 const Color iconColor = Color(0xFF566273);
 // Primary color (Blue): Used for key interactive elements like buttons, links, and selected states
-const Color primaryColor = Color(0xff000000);
-const Color secondaryColor = Color(0xFFFFFFFF);
+const Color primaryColor = Color(0xffFF7C07);
+const Color secondaryColor = Color(0xFF4EB429);
 
 // Tertiary color (Gray): Used for less important UI elements like disabled states or subtle details
 const tertiaryColor = Color(0xFFF0F0F0);
