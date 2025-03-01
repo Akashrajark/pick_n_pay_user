@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pick_n_pay_user/features/dashboard_map.dart/dashboard_map.dart';
+import 'package:pick_n_pay_user/features/oders/order_screen.dart';
 import 'package:pick_n_pay_user/features/profile/profile_screen.dart';
 import 'package:pick_n_pay_user/features/showcase_page/showcase_page.dart';
 import 'package:pick_n_pay_user/theme/app_theme.dart';
@@ -36,9 +38,10 @@ class _HomeState extends State<Home> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          Center(child: Text("Map Page")),
+          DashboardMap(),
           //shocase page = home page
           ShowcasePage(),
+          OrderScreen(),
           ProfileScreen()
         ],
       ),
@@ -64,6 +67,10 @@ class _HomeState extends State<Home> {
           BarItem(
             filledIcon: Icons.storefront_rounded,
             outlinedIcon: Icons.storefront,
+          ),
+          BarItem(
+            filledIcon: Icons.border_all_rounded,
+            outlinedIcon: Icons.border_all_outlined,
           ),
           BarItem(
             filledIcon: Icons.person_2,

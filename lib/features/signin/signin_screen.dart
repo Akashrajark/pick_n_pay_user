@@ -61,12 +61,12 @@ class SigninScreen extends StatelessWidget {
                         validator: emailValidator),
                     SizedBox(height: 10),
 
-                    // Password Field
                     Text("Password"),
                     SizedBox(
                       height: 8,
                     ),
                     CustomTextFormField(
+                        suffixIconData: Icons.visibility_off,
                         labelText: 'Enter Password',
                         controller: _passwordController,
                         validator: passwordValidator),

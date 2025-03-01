@@ -2,18 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:pick_n_pay_user/common_widgets.dart/custom_search.dart';
 import 'package:pick_n_pay_user/features/cart/cart_screen.dart';
 import 'package:pick_n_pay_user/features/showcase_page/category_card.dart';
-import 'package:pick_n_pay_user/features/showcase_page/products_show_screen.dart';
+import 'package:pick_n_pay_user/features/showcase_page/dummy_data.dart';
 import 'package:pick_n_pay_user/features/showcase_page/see_all_category.dart';
 import 'package:pick_n_pay_user/features/showcase_page/shop_card.dart';
 import 'package:pick_n_pay_user/features/showcase_page/shop_detailed_list_page.dart';
 import 'package:pick_n_pay_user/theme/app_theme.dart';
 
-class ShowcasePage extends StatelessWidget {
+class ShowcasePage extends StatefulWidget {
   const ShowcasePage({super.key});
 
   @override
+  State<ShowcasePage> createState() => _ShowcasePageState();
+}
+
+class _ShowcasePageState extends State<ShowcasePage> {
+  int _currentBannerPage = 0;
+  final PageController _bannerController = PageController();
+
+  final List<String> _bannerImages = [
+    'https://img.freepik.com/premium-photo/fresh-organic-vegetables-fruits-shelf-supermarket-farmers-market-healthy-food-concept-vitamins-minerals-tomatoes-capsicum-cucumbers-mushrooms-zucchini_197589-1218.jpg?w=1380',
+    'https://img.freepik.com/free-photo/shopping-basket-with-groceries_23-2148949450.jpg',
+    'https://img.freepik.com/free-photo/fruits-vegetables-basket_144627-17342.jpg',
+    'https://img.freepik.com/free-photo/various-vegetables-black-table_1205-9728.jpg',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _startBannerAutoScroll();
+  }
+
+  @override
+  void dispose() {
+    _bannerController.dispose();
+    super.dispose();
+  }
+
+  void _startBannerAutoScroll() {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        if (_currentBannerPage < _bannerImages.length - 1) {
+          _currentBannerPage++;
+        } else {
+          _currentBannerPage = 0;
+        }
+
+        _bannerController.animateToPage(
+          _currentBannerPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+
+        _startBannerAutoScroll();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Example cart item count
     int cartItemCount = 3;
 
     return SingleChildScrollView(
@@ -23,25 +69,10 @@ class ShowcasePage extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                radius: 25,
-                backgroundColor: Colors.grey,
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Let's Order Grocery Items",
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.normal, color: Colors.black45),
-                  ),
-                  Text(
-                    'Tendulker',
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold, color: Colors.black),
-                  )
-                ],
+              Text(
+                'Pick N Pay',
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.bold, color: secondaryColor),
               ),
               const Spacer(),
               Stack(
@@ -60,8 +91,8 @@ class ShowcasePage extends StatelessWidget {
                     ),
                   ),
                   if (cartItemCount > 0)
-                    Align(
-                      alignment: Alignment.topRight,
+                    Positioned(
+                      right: 0,
                       child: Container(
                         padding: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
@@ -87,8 +118,6 @@ class ShowcasePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 15),
-
-          // Search Bar
           Row(
             children: [
               Expanded(
@@ -104,19 +133,6 @@ class ShowcasePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-
-          // Banner Section
-          Container(
-            height: 150,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          const SizedBox(height: 15),
-
-          // Top Categories
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -146,27 +162,8 @@ class ShowcasePage extends StatelessWidget {
               ),
             ],
           ),
-
-          SizedBox(
-            height: 115,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              separatorBuilder: (context, index) => const SizedBox(width: 10),
-              itemBuilder: (context, index) => CategoryCard(
-                ontap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductsShowScreen(),
-                      ));
-                },
-              ),
-            ),
-          ),
+          CategoryList(),
           const SizedBox(height: 20),
-
-          // Shops Section
           Text(
             'Shops',
             style: Theme.of(context)
@@ -174,11 +171,10 @@ class ShowcasePage extends StatelessWidget {
                 .titleLarge!
                 .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
           ),
-
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 6,
+            itemCount: dummyShops.length,
             separatorBuilder: (context, index) => const Divider(
               color: Colors.black26,
             ),
@@ -190,6 +186,7 @@ class ShowcasePage extends StatelessWidget {
                       builder: (context) => ShopDetailedListPage(),
                     ));
               },
+              shop: dummyShops[index],
             ),
           ),
           const SizedBox(height: 20),

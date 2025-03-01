@@ -72,6 +72,7 @@ class SignupScreen extends StatelessWidget {
                     CustomTextFormField(
                         labelText: 'Enter password',
                         controller: _passwordController,
+                        suffixIconData: Icons.visibility_off,
                         validator: passwordValidator),
                     SizedBox(height: 10),
 
@@ -82,6 +83,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     CustomTextFormField(
                         labelText: 'Enter confirm password',
+                        suffixIconData: Icons.visibility_off,
                         controller: _confirmPasswordController,
                         validator: passwordValidator),
                     SizedBox(height: 22),
