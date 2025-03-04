@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ShopCard extends StatelessWidget {
-  const ShopCard({super.key, this.ontap});
   final Function()? ontap;
+  final Map shopData;
+  const ShopCard({super.key, this.ontap, required this.shopData});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -13,13 +15,13 @@ class ShopCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 160,
+              height: 140,
               width: 130, // Added width for proper layout
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: NetworkImage(
-                    'https://www.shutterstock.com/shutterstock/photos/2152391795/display_1500/stock-photo-tirupati-andhra-pradesh-india-september-an-indian-shopkeeper-selling-snacks-and-drinks-at-2152391795.jpg',
+                    shopData['image_url'],
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -31,7 +33,7 @@ class ShopCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Shop Name',
+                    shopData['name'],
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -39,11 +41,11 @@ class ShopCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Best quality products available here.',
+                    shopData['description'],
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Colors.black54,
                         ),
-                    maxLines: 2,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

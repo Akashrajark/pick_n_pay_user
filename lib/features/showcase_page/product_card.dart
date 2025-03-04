@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatefulWidget {
+class ProductCard extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String subtitle;
   final String price;
   final Color cardColor;
   final Color buttonColor;
+  final Function() onIncrement, onDecrement;
+  final int counte;
 
   const ProductCard({
     super.key,
@@ -16,28 +18,10 @@ class ProductCard extends StatefulWidget {
     required this.price,
     required this.cardColor,
     required this.buttonColor,
+    required this.onIncrement,
+    required this.onDecrement,
+    required this.counte,
   });
-
-  @override
-  _ProductCardState createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      if (_counter > 0) {
-        _counter--;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +30,7 @@ class _ProductCardState extends State<ProductCard> {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: widget.cardColor,
+          color: cardColor,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -63,7 +47,7 @@ class _ProductCardState extends State<ProductCard> {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                widget.imageUrl,
+                imageUrl,
                 height: 130,
                 width: 130,
                 fit: BoxFit.cover,
@@ -75,7 +59,7 @@ class _ProductCardState extends State<ProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.title,
+                    title,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -83,12 +67,12 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    widget.subtitle,
+                    subtitle,
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    widget.price,
+                    price,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.red,
@@ -102,30 +86,30 @@ class _ProductCardState extends State<ProductCard> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // Decrement Button
-                        if (_counter > 0)
+                        if (counte > 0)
                           IconButton(
-                            onPressed: _decrementCounter,
+                            onPressed: onDecrement,
                             icon: const Icon(Icons.remove, color: Colors.white),
                             style: IconButton.styleFrom(
-                              backgroundColor: widget.buttonColor,
+                              backgroundColor: buttonColor,
                               shape: const CircleBorder(),
                               padding: const EdgeInsets.all(8),
                               minimumSize: const Size(34, 34),
                             ),
                           ),
                         // Counter Display
-                        if (_counter > 0)
+                        if (counte > 0)
                           Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 8),
                             decoration: BoxDecoration(
-                              color: widget.buttonColor.withOpacity(0.2),
+                              color: buttonColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              '$_counter',
+                              '$counte',
                               style: TextStyle(
-                                color: widget.buttonColor,
+                                color: buttonColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -133,10 +117,10 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                         // Increment Button
                         IconButton(
-                          onPressed: _incrementCounter,
+                          onPressed: onIncrement,
                           icon: const Icon(Icons.add, color: Colors.white),
                           style: IconButton.styleFrom(
-                            backgroundColor: widget.buttonColor,
+                            backgroundColor: buttonColor,
                             shape: const CircleBorder(),
                             padding: const EdgeInsets.all(8),
                             minimumSize: const Size(34, 34),

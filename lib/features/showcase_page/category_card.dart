@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
+  final Map categorieDetials;
   const CategoryCard({
     super.key,
     this.ontap,
+    required this.categorieDetials,
   });
   final Function()? ontap;
   @override
@@ -15,21 +17,33 @@ class CategoryCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         clipBehavior: Clip.none,
         child: Container(
-          width: 100,
+          width: 150,
           decoration: BoxDecoration(
             color: Colors.grey[300],
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.grey[500],
-                child: const Icon(Icons.fastfood, color: Colors.black),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+                child: Image.network(
+                  categorieDetials['image_url'],
+                  width: double.infinity,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
-              const SizedBox(height: 5),
-              const Text("Category"),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                  categorieDetials['name'],
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
             ],
           ),
         ),
