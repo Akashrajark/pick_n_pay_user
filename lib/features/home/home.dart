@@ -68,6 +68,7 @@ class _HomeState extends State<Home> {
           Center(child: Text("Map Page")),
           ShowcasePage(),
           OrderScreen(),
+          OrderScreen(),
           ProfileScreen()
         ],
       ),

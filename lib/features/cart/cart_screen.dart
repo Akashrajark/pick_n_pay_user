@@ -117,7 +117,7 @@ class _CartScreenState extends State<CartScreen> {
                                   'p_pickup_time':
                                       _pickUpTime!.toIso8601String(),
                                   'p_status': 'Pending',
-                                  'p_price': _totalPrice
+                                  'p_price': _totalPrice,
                                 },
                               ),
                             );
