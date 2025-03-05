@@ -141,8 +141,9 @@ class _ShopDetailedListPageState extends State<ShopDetailedListPage> {
                             child: ProductCard(
                               imageUrl: products[index]['image_url'],
                               title: products[index]['name'],
-                              subtitle: products[index]['stock'].toString(),
-                              price: products[index]['price'].toString(),
+                              subtitle: 'stock ${products[index]['stock']}',
+                              price:
+                                  '₹ ${products[index]['price']}/ ${products[index]['unit']}',
                               cardColor: Colors.white,
                               buttonColor: Colors.green,
                               onIncrement: () {
