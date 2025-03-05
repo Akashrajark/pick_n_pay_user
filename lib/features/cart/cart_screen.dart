@@ -18,7 +18,7 @@ class _CartScreenState extends State<CartScreen> {
   final CartsBloc _cartsBloc = CartsBloc();
   List<Map<String, dynamic>> _carts = [];
   double _totalPrice = 0.0;
-  DateTime? _pickUpTime;
+  // DateTime? _pickUpTime;
 
   @override
   void initState() {
@@ -55,6 +55,8 @@ class _CartScreenState extends State<CartScreen> {
                 );
               } else if (state is OrdersSuccessState) {
                 Navigator.pop(context);
+                _cartsBloc.add(GetAllCartsEvent(params: {}));
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Order placed successfully!'),
@@ -69,19 +71,19 @@ class _CartScreenState extends State<CartScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      'Pick Up Time',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomDatePicker(
-                      isDateTime: true,
-                      firstDate: DateTime.now(),
-                      onPick: (pcik) {
-                        _pickUpTime = pcik;
-                      },
-                    ),
+                    // const Text(
+                    //   'Pick Up Time',
+                    //   style:
+                    //       TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    // ),
+                    // const SizedBox(height: 10),
+                    // CustomDatePicker(
+                    //   isDateTime: true,
+                    //   firstDate: DateTime.now(),
+                    //   onPick: (pcik) {
+                    //     _pickUpTime = pcik;
+                    //   },
+                    // ),
                     const Text(
                       'Total Price',
                       style:
@@ -97,31 +99,31 @@ class _CartScreenState extends State<CartScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_pickUpTime == null) {
-                            showDialog(
-                              context: context,
-                              builder: (context) => CustomAlertDialog(
-                                title: 'Error',
-                                description: 'Please select pick up time',
-                                primaryButton: 'Ok',
-                                onPrimaryPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            );
-                            return;
-                          } else {
-                            BlocProvider.of<OrdersBloc>(context).add(
-                              AddOrderEvent(
-                                orderDetails: {
-                                  'p_pickup_time':
-                                      _pickUpTime!.toIso8601String(),
-                                  'p_status': 'Pending',
-                                  'p_price': _totalPrice,
-                                },
-                              ),
-                            );
-                          }
+                          // if (_pickUpTime == null) {
+                          //   showDialog(
+                          //     context: context,
+                          //     builder: (context) => CustomAlertDialog(
+                          //       title: 'Error',
+                          //       description: 'Please select pick up time',
+                          //       primaryButton: 'Ok',
+                          //       onPrimaryPressed: () {
+                          //         Navigator.pop(context);
+                          //       },
+                          //     ),
+                          //   );
+                          //   return;
+                          // } else {
+                          BlocProvider.of<OrdersBloc>(context).add(
+                            AddOrderEvent(
+                              orderDetails: {
+                                // 'p_pickup_time':
+                                //     _pickUpTime!.toIso8601String(),
+                                'p_status': 'Pending',
+                                'p_price': _totalPrice,
+                              },
+                            ),
+                          );
+                          // }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
