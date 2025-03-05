@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          Center(child: Text("Map Page")),
+          // Center(child: Text("Map Page")),
           ShowcasePage(),
           OrderScreen(),
           ProfileScreen()
@@ -86,10 +86,10 @@ class _HomeState extends State<Home> {
         },
         selectedIndex: selectedIndex,
         barItems: [
-          BarItem(
-            filledIcon: CupertinoIcons.house_fill,
-            outlinedIcon: CupertinoIcons.house,
-          ),
+          // BarItem(
+          //   filledIcon: CupertinoIcons.house_fill,
+          //   outlinedIcon: CupertinoIcons.house,
+          // ),
           BarItem(
             filledIcon: Icons.storefront_rounded,
             outlinedIcon: Icons.storefront,
